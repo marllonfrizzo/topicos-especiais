@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @encomenda.nome %>
+</p>
+
+<p>
+  <strong>Rastreio:</strong>
+  <%= @encomenda.rastreio %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @encomenda.email %>
+</p>
+
+<p>
+  <strong>Histórico de Rastreamento</strong>
+  <% if @erro != -1%>
+    <p>Quantidade de Eventos: <%= @quantidade %>.</p>
+    <p>Data: <%= @data %>.</p>
+    <p>Hora: <%= @hora %>.</p>
+    <p>Local: <%= @local %>.</p>
+    <p>Descrição: <%= @descricao %>.</p>
+  <% else %>
+    <p>Erro ao buscar histórico de rastreamento para esse objeto!</p>
+  <% end %>
+</p>
+
+<%= link_to 'Editar', edit_encomenda_path(@encomenda) %> |
+<%= link_to 'Voltar', encomendas_path %>

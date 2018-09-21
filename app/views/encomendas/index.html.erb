@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Encomendas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Rastreio</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @encomendas.each do |encomenda| %>
+      <tr>
+        <td><%= encomenda.nome %></td>
+        <td><%= encomenda.rastreio %></td>
+        <td><%= encomenda.email %></td>
+        <td><%= link_to 'Exibir', encomenda %></td>
+        <td><%= link_to 'Editar', edit_encomenda_path(encomenda) %></td>
+        <td><%= link_to 'Excluir', encomenda, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        <td><%= link_to 'Rastrear', encomenda %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nova Encomenda', new_encomenda_path %>

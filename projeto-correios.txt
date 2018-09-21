@@ -1,0 +1,35 @@
+1. 	Instalação da Gem
+1.1 No arquivo Gemfile, adicionar a linha gem 'correios-sro-xml', '~> 0.4.0'
+1.1 Rodar o comando bundle install no diretório raiz para instalar a gem.
+
+2. 	Utilição da API
+2.1 No arquivo de Controller, dentro da ação, adicionar as seguintes linhas:
+		require 'correios-sro-xml'
+    	sro = Correios::SRO::Tracker.new(user: "ECT", password: "SRO")
+    Com essas linhas já é possível realizar consultas na base dos Correios.
+
+3. Desenvolvimento
+3.1 Na listagem dos cadastros de encomenda, adicionei um link para a página
+	que exibe as informações da encomenda. Nessa página exibem os dados relativos
+	a aquele código de rastreio.
+3.2	No arquivo de Controller da classe de encomendas, no método show, existe a chamada
+	para o webservice, que se dá nas seguintes linhas:
+		require 'correios-sro-xml'
+    	sro = Correios::SRO::Tracker.new(user: "ECT", password: "SRO")
+    	sro.result_mode = :all
+	    object = sro.get(@encomenda.rastreio)
+	onde passa por parâmetro o código da encomenda para o método get, que era fazer a 
+	requisição para o webservice.
+3.3 Depois da consulta ao webservice, é testado o valor de retorno, caso seja nil, significa
+	que houve algum erro e não foi retornado nada, então é retornado um código de erro para
+	o front-end. Caso contrário, é salvo os retornos em variáveis, para serem exibidas no
+	front-end.
+
+4. 	Front-end
+4.1 Foi adicionado um parágrafo abaixo dos dados que foram previamente cadastrados pelo usuário.
+	Nesse parágrafo, é exibido os dados do rastreamento.
+4.2	Logo no início, é testado se existe algum código de retorno, caso exista, significa
+	que aconteceu um erro ao consultar o objeto no webservice, portanto, será exibida apenas
+	uma mensagem de erro ao usuário.
+4.3	Caso não tenha nenhum código de erro, é exibido os dados do rastreamento do objeto.
+	
